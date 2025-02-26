@@ -1,5 +1,3 @@
-
-
 from django.shortcuts import render, redirect
 from django.http import HttpResponse
 from django.contrib import messages ,auth
@@ -113,34 +111,34 @@ def contact(request):
 #     return redirect('useradmin')
 
 
-# from django.db.models.signals import post_save
-# from django.dispatch import receiver
-# from django.contrib.auth.models import User
-# from .models import UserProgress, Video
+from django.db.models.signals import post_save
+from django.dispatch import receiver
+from django.contrib.auth.models import User
+from .models import UserProgress, Video
 
 
-# from django.db.models.signals import post_save
-# from django.dispatch import receiver
-# from django.contrib.auth.models import User
-# from .models import UserProgress, Video
+from django.db.models.signals import post_save
+from django.dispatch import receiver
+from django.contrib.auth.models import User
+from .models import UserProgress, Video
 
-# @receiver(post_save, sender=User)
-# def create_user_progress(sender, instance, created, **kwargs):
-#     if created:
-#         # Get the first two videos
-#         first_video = Video.objects.all().order_by('id').first()
-#         second_video = Video.objects.all().order_by('id')[1]
+@receiver(post_save, sender=User)
+def create_user_progress(sender, instance, created, **kwargs):
+    if created:
+        # Get the first two videos
+        first_video = Video.objects.all().order_by('id').first()
+        second_video = Video.objects.all().order_by('id')[1]
         
-#         # Create UserProgress instances for the first two videos
-#         UserProgress.objects.create(user=instance, video=first_video, is_unlocked=True, watched_previous=True)
-#         UserProgress.objects.create(user=instance, video=second_video, watched_previous=True)
+        # Create UserProgress instances for the first two videos
+        UserProgress.objects.create(user=instance, video=first_video, is_unlocked=True, watched_previous=True)
+        UserProgress.objects.create(user=instance, video=second_video, watched_previous=True)
         
-#         # Get all videos starting from the third video
-#         videos = Video.objects.all().order_by('id')[2:]
+        # Get all videos starting from the third video
+        videos = Video.objects.all().order_by('id')[2:]
         
-#         # Create UserProgress instances for each video with is_unlocked=False, watched_previous=False
-#         for video in videos:
-#             UserProgress.objects.create(user=instance, video=video, is_unlocked=False, watched_previous=False)
+        # Create UserProgress instances for each video with is_unlocked=False, watched_previous=False
+        for video in videos:
+            UserProgress.objects.create(user=instance, video=video, is_unlocked=False, watched_previous=False)
 
 
 
@@ -150,38 +148,36 @@ def contact(request):
 def start_learning(request):
     videos = Video.objects.all()
 
-    return render(request, 'allvideos.html', {'videos': videos })
+    user = request.user  
+    user_progress = UserProgress.objects.filter(user=user)
+    print(user_progress)
+
+    return render(request, 'allvideos.html', {'videos': videos, 'user_progress':user_progress})
 
 
-# @login_required
-# def unlock_video(request, video_id):
-#     video = Video.objects.get(pk=video_id)
-#     user = request.user
+@login_required
+def unlock_video(request, video_id):
+    video = Video.objects.get(pk=video_id)
+    user = request.user
     
-#     userprogress, created = UserProgress.objects.get_or_create(user=user, video=video)
+    userprogress, created = UserProgress.objects.get_or_create(user=user, video=video)
     
-#     if not userprogress.is_unlocked:
-#         userprogress.is_unlocked = True
-#         userprogress.save()
+    if not userprogress.is_unlocked:
+        userprogress.is_unlocked = True
+        userprogress.save()
     
-#     # Check if there's a next video
-#     next_video_id = video_id + 1
-#     try:
-#         next_video = Video.objects.get(pk=next_video_id)
-#         next_userprogress, created = UserProgress.objects.get_or_create(user=user, video=next_video)
+    # Check if there's a next video
+    next_video_id = video_id + 1
+    try:
+        next_video = Video.objects.get(pk=next_video_id)
+        next_userprogress, created = UserProgress.objects.get_or_create(user=user, video=next_video)
         
-#         # Mark the next video as watched_previous
-#         if not next_userprogress.watched_previous:
-#             next_userprogress.watched_previous = True
-#             next_userprogress.save()
-#     except Video.DoesNotExist:
-#         pass  # No next video
+        # Mark the next video as watched_previous
+        if not next_userprogress.watched_previous:
+            next_userprogress.watched_previous = True
+            next_userprogress.save()
+    except Video.DoesNotExist:
+        pass  # No next video
     
-#     return redirect('videos')
-
-
-
-
-
-
+    return redirect('start_learning')
 

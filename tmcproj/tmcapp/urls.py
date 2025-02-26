@@ -10,7 +10,6 @@ urlpatterns = [
     path('contact/', views.contact, name='contact'),
 
     path('start_learning/', views.start_learning, name='start_learning'),
-    # path('videos/unlock/<int:video_id>/', views.unlock_video, name='unlock_video'),
-
+    path('videos/unlock/<int:video_id>/', views.unlock_video, name='unlock_video'),
 ]
 
