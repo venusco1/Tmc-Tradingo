@@ -181,3 +181,5 @@ def unlock_video(request, video_id):
     
     return redirect('start_learning')
 
+def documents(request):
+    return render(request, "documents.html")

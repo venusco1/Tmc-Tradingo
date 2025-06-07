@@ -41,6 +41,7 @@
               <li><a class="get-a-quote" href="#" data-bs-toggle="modal" data-bs-target="#alertModal_StartLearning">Start Learning</a></li>
             {% endif %}
           {% endif %}
+          <li><a href="{% url "documents" %}">Invester Plan</a></li>
                 </ul>
       </nav><!-- .navbar -->
     </div>
@@ -54,24 +55,64 @@
       <div class="row gy-4 d-flex justify-content-between">
         <div class="col-lg-6 order-2 order-lg-1 d-flex flex-column justify-content-center"> 
 
-          <h5 class="text-center mt-5 pt-2" data-aos="fade-up" style="font-size: 1.2em; color: rgba(140, 189, 239, 0.45); font-family: 'Gill Sans', sans-serif; letter-spacing: 2px;">TRADING&nbsp;MASTERCLASS</h5>
-          
+
+
+        <div id="carouselExampleIndicators" class="carousel slide pt-5" data-bs-ride="carousel">
+          <div class="carousel-indicators">
+            <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
+            <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="1" aria-label="Slide 2"></button>
+          </div>
+        <div class="carousel-inner">
+          <div class="carousel-item active">
+            
+          <h5 class="text-center mt-5 pt-2" data-aos="fade-up" style="font-size: 1.2em; color: rgba(140, 189, 239, 0.45); font-family: 'Gill Sans', sans-serif; letter-spacing: 2px;">TRADING&nbsp;MASTERCLASS</h5> 
           <p class="text-center custom-heading mt-1 mb-0 fw-bold" data-aos="fade-up" style="font-size: 1.9em; font-family: Georgia, serif; color: rgb(157 162 167 / 60%);">
             Complete Guide to Trading <br>
           
             {% if user.is_authenticated %}
 
             {% if user.allowcourse.course_allowed %}
-            <a class="btn btn-outline-secondary font-monospace mt-3" href="{% url 'start_learning' %}" data-toggle="modal" data-target="#loginModal">Start Learning</a>
+            <a class="btn btn-outline-secondary font-monospace mt-5" href="{% url 'start_learning' %}" data-toggle="modal" data-target="#loginModal" style="margin-bottom: 80px;">Start Learning</a>
             {% else %}
-              <a class="btn btn-outline-secondary font-monospace mt-3" href="#" data-bs-toggle="modal" data-bs-target="#alertModal_StartLearning">Start Learning</a>
+              <a class="btn btn-outline-secondary font-monospace mt-5" href="#" data-bs-toggle="modal" data-bs-target="#alertModal_StartLearning" style="margin-bottom: 80px;">Start Learning</a>
             {% endif %}
 
-          {% else %}
-          <a class="btn btn-outline-secondary font-monospace mt-5" href="{% url 'login' %}" data-toggle="modal" data-target="#loginModal">Login Now!</a>
-        {% endif %}
+            {% else %}
+            <a class="btn btn-outline-secondary font-monospace mt-5" href="{% url 'login' %}" data-toggle="modal" data-target="#loginModal" style="margin-bottom: 80px;">Login Now!</a>
+            {% endif %}
           </p>
 
+          </div>
+          <div class="carousel-item">
+            
+          <h5 class="text-center mt-5 pt-2" data-aos="fade-up" style="font-size: 1.2em; color: rgba(140, 189, 239, 0.45); font-family: 'Gill Sans', sans-serif; letter-spacing: 2px;">INVOSTOR&nbsp;PLAN</h5> 
+          <p class="text-center custom-heading mt-1 mb-0 fw-bold" data-aos="fade-up" style="font-size: 1.7em; font-family: Georgia, serif; color: rgb(157 162 167 / 60%);">
+            Earn Every Week, Stress-Free! <br>
+          
+            {% if user.is_authenticated %}
+
+            {% if user.allowcourse.course_allowed %}
+            <a class="btn btn-outline-secondary font-monospace mt-5" href="{% url 'documents' %}" data-toggle="modal" data-target="#loginModal" style="margin-bottom: 80px;">Check In</a>
+            {% else %}
+              <a class="btn btn-outline-secondary font-monospace mt-5" href="{% url 'documents' %}" data-bs-toggle="modal" data-bs-target="#alertModal_StartLearning" style="margin-bottom: 80px;">Check In</a>
+            {% endif %}
+
+            {% else %}
+            <a class="btn btn-outline-secondary font-monospace mt-5" href="{% url 'documents' %}" data-toggle="modal" data-target="#loginModal" style="margin-bottom: 80px;">Check In</a>
+            {% endif %}
+          </p>
+          </div>
+
+        </div>
+        <button class="carousel-control-prev px-3" type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide="prev">
+          <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+          <span class="visually-hidden">Previous</span>
+        </button>
+        <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide="next">
+          <span class="carousel-control-next-icon" aria-hidden="true"></span>
+          <span class="visually-hidden">Next</span>
+        </button>
+      </div>
 
         </div>
         <div class="col-lg-4 order-1 order-lg-2 aos-init aos-animate justify-content-center"> 
