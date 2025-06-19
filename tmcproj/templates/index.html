@@ -88,18 +88,8 @@
           <h5 class="text-center mt-5 pt-2" data-aos="fade-up" style="font-size: 1.2em; color: rgba(140, 189, 239, 0.45); font-family: 'Gill Sans', sans-serif; letter-spacing: 2px;">INVOSTOR&nbsp;PLAN</h5> 
           <p class="text-center custom-heading mt-1 mb-0 fw-bold" data-aos="fade-up" style="font-size: 1.7em; font-family: Georgia, serif; color: rgb(157 162 167 / 60%);">
             Earn Every Week, Stress-Free! <br>
-          
-            {% if user.is_authenticated %}
 
-            {% if user.allowcourse.course_allowed %}
             <a class="btn btn-outline-secondary font-monospace mt-5" href="{% url 'documents' %}" data-toggle="modal" data-target="#loginModal" style="margin-bottom: 80px;">Check In</a>
-            {% else %}
-              <a class="btn btn-outline-secondary font-monospace mt-5" href="{% url 'documents' %}" data-bs-toggle="modal" data-bs-target="#alertModal_StartLearning" style="margin-bottom: 80px;">Check In</a>
-            {% endif %}
-
-            {% else %}
-            <a class="btn btn-outline-secondary font-monospace mt-5" href="{% url 'documents' %}" data-toggle="modal" data-target="#loginModal" style="margin-bottom: 80px;">Check In</a>
-            {% endif %}
           </p>
           </div>
 
